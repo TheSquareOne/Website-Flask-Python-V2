@@ -1,0 +1,9 @@
+# Compiled bytecode
+/app/__pycache__/
+/app/*.pyc
+
+# Virtual environment
+/virenv/
+
+# Personal TODO list
+/TODO
