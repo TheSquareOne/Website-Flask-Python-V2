@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <!-- Meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+      <!-- Style -->
+      {% block style %}
+      {% endblock %}
+
+      <!-- Page title -->
+      <title>{% block title %}{% endblock %}</title>
+
+      <!-- For jQuery and other scripts that should be located in head -->
+      {% block script %}
+      {% endblock %}
+  </head>
+  <body>
+    <div class="container-fluid mt-3">
+      <nav>
+        <div class="row">
+          <div class="col">
+            <ul class="nav">
+              <a class="btn btn-primary" href="{{ url_for('home') }}">Home</a>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="nav justify-content-end">
+              <li class="nav-item">
+                <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <hr>
+      
+      <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </div>
+
+      <div class="container mt-2">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

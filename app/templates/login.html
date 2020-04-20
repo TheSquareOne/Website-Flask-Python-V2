@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+
+{% block style %}
+<link href="../static/signup.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+  <div class="jumbotron">
+    <h1 class="text-center">Login</h1>
+    <form action="" method="POST" class="form-signin" novalidate>
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}
+        
+        {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}
+
+        {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+      <p>{{ form.submit() }}</p>
+    </form>
+  </div>
+
+{% endblock %}

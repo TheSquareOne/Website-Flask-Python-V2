@@ -1,6 +1,7 @@
 # Compiled bytecode
 /app/__pycache__/
 /app/*.pyc
+/__pycache__/
 
 # Virtual environment
 /virenv/

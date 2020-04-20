@@ -12,9 +12,19 @@ Werkzeug: 1.0.1
 
 
 Python scripts:
-app.py        Base app code
-__init__.py   Initialize flask
-routes.py     URL routes
+app.py          Base app code
+__init__.py     Initialize flask, and configurations
+routes.py       URL routes
+forms.py        Create secure web forms with Flask-WTF
+config.py       Include application configurations
+
+
+HTML pages:
+index.html      Front side of web-server. Maybe add some kind of dashboard features and public stuff (blogs, projects) in future here.
+template.html   Template for all pages. Includes basic head information, CSS and code block placements.
+login.html      User login page.
+
+
 
 References:
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
