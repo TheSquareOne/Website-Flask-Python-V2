@@ -7,8 +7,10 @@
 /virenv/
 
 # Ignore migration files except migration scripts
+!/migrations/
 /migrations/*
-!/migrations/versions/*py
+/migrations/versions/__pycache__/
+!/migrations/versions/
 
 # Personal TODO list
 /TODO

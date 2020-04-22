@@ -35,5 +35,13 @@ Migrations commands:
     'flask db downgrade'                        Revert back last migration.
 
 
+Problems:
+    During migrating edit_date and signup_date in user table, edit_date had to be done first in order to work.
+    1. op.add_column('user', sa.Column('edit_date', sa.TIMESTAMP(), nullable=False))
+    2. op.add_column('user', sa.Column('signup_date', sa.TIMESTAMP(), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False))
+    In case of reverse order following error would be given:
+    sqlalchemy.exc.OperationalError: (MySQLdb._exceptions.OperationalError) (1067, "Invalid default value for 'edit_date'")
+
+
 References:
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
