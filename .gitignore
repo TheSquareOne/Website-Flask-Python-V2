@@ -6,5 +6,9 @@
 # Virtual environment
 /virenv/
 
+# Ignore migration files except migration scripts
+/migrations/*
+!/migrations/versions/*py
+
 # Personal TODO list
 /TODO
