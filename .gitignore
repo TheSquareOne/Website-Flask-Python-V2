@@ -2,6 +2,7 @@
 /app/__pycache__/
 /app/*.pyc
 /__pycache__/
+/config.pyc
 
 # Virtual environment
 /virenv/
