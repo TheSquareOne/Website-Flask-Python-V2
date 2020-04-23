@@ -1,0 +1,20 @@
+# Compiled bytecode
+/app/__pycache__/
+/app/*.pyc
+/__pycache__/
+/config.pyc
+
+# Virtual environment
+/virenv/
+
+# Ignore migration files except migration scripts
+!/migrations/
+/migrations/*
+/migrations/versions/__pycache__/
+!/migrations/versions/
+
+# Some secret stuff
+config.txt
+
+# Personal TODO list
+/TODO
