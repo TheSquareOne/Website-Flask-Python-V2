@@ -31,14 +31,19 @@
           <div class="col">
             <ul class="nav justify-content-end">
               <li class="nav-item">
+                {% if current_user.is_anonymous %}
+                <a class="btn btn-primary mr-3" href="{{ url_for('signup') }}">Signup</a>
                 <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+                {% else %}
+                <a class="btn btn-primary" href="{{ url_for('logout') }}">Logout</a>
+                {% endif %}
               </li>
             </ul>
           </div>
         </div>
       </nav>
       <hr>
-      
+
       <div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}

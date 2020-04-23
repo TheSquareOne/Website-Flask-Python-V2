@@ -12,18 +12,19 @@ Werkzeug: 1.0.1
 
 
 Python scripts:
-app.py              Base app code
-__init__.py         Initialize flask, and configurations
-routes.py           URL routes
-forms.py            Create secure web forms with Flask-WTF
-config.py           Include application configurations
+app.py              Base app code.
+__init__.py         Initialize flask and extensions.
+routes.py           URL routes.
+forms.py            Create secure web forms with Flask-WTF.
+config.py           Include application configurations.
+models.py           Include db models and some db functions.
 
 
 HTML pages:
 index.html          Front side of web-server. Maybe add some kind of dashboard features and public stuff (blogs, projects) in future here.
 template.html       Template for all pages. Includes basic head information, CSS and code block placements.
 login.html          User login page.
-
+signup.html         User registration page.
 
 migration/          Some files used for database migrations. Made by flask-migrate.
 migration/version/  Contains scripts for database migration.

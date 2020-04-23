@@ -1,0 +1,58 @@
+{% extends "template.html" %}
+{% block title %} Signup {% endblock %}
+
+{% block style %}
+<link href="../static/signup.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+  <div class="jumbotron">
+    <h1 class="text-center">Welcome to my site!</h1>
+    <h5 class="text-center">Please fill out the signup form below for access</h5>
+    <div class="mt-3 d-flex justify-content-center">
+      <ul class="p-3 pl-4 border border-dark rounded bg-dark text-white">
+        <li>Name length should be 2-15 characters, with atleast one letter</li>
+        <li>Email should be in form of example@email.com</li>
+        <li>Password minimum length is 10 characters</li>
+      </ul>
+    </div>
+    <form action="" method="POST" class="form-signin" novalidate>
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}
+
+        {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.email.label }}<br>
+        {{ form.email(size=64) }}
+
+        {% for error in form.email.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}
+
+        {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.password_2.label }}<br>
+        {{ form.password_2(size=32) }}
+
+        {% for error in form.password_2.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>{{ form.submit() }}</p>
+    </form>
+  </div>
+
+{% endblock %}

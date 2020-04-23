@@ -13,5 +13,8 @@
 /migrations/versions/__pycache__/
 !/migrations/versions/
 
+# Some secret stuff
+config.txt
+
 # Personal TODO list
 /TODO
