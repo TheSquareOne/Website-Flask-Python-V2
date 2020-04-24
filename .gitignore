@@ -7,14 +7,18 @@
 # Virtual environment
 /virenv/
 
-# Ignore migration files except migration scripts
+# Ignore migration files, except migration scripts
 !/migrations/
 /migrations/*
 /migrations/versions/__pycache__/
 !/migrations/versions/
 
+# Logs
+/logs/
+
 # Some secret stuff
 config.txt
+emails.txt
 
 # Personal TODO list
 /TODO

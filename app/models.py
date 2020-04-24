@@ -13,6 +13,7 @@ from flask_login import UserMixin
 # | password_hash | varchar(128) | YES  |     | NULL              |                             |
 # | edit_date     | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
 # | signup_date   | timestamp    | NO   |     | CURRENT_TIMESTAMP |                             |
+# | about_me      | varchar(200) | YES  |     | NULL              |                             |
 # +---------------+--------------+------+-----+-------------------+-----------------------------+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +23,7 @@ class User(UserMixin, db.Model):
     edit_date = db.Column(db.TIMESTAMP, default=text('CURRENT_TIMESTAMP'), nullable=False)
     signup_date = db.Column(db.TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'), nullable=False)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    about_me = db.Column(db.String(200))
 
     # Set password for user
     def set_password(self, password):
