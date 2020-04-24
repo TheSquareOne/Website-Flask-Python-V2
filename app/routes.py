@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db
-from app.forms import LoginForm, SignUpForm
+from app.forms import LoginForm, SignUpForm, EditProfileForm
 from app.models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -14,7 +14,7 @@ def home():
 # Login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # If user is authenticated already go to home page instead of login
+    # If user is authenticated already, go to home page instead of login
     if current_user.is_authenticated:
         return redirect(url_for('home'))
 
@@ -65,3 +65,30 @@ def signup():
         flash('Registration successful!')
         return redirect(url_for('login'))
     return render_template('signup.html', form=form)
+
+
+# Users profile page, where <username> is username for known user
+@app.route('/profile/<username>')
+@login_required
+def profile(username):
+    # Check if user exist or return error page
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('profile.html', user=user)
+
+
+# Edit user profile
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm(current_user.username)
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Changes have been saved!')
+        return redirect(url_for('edit_profile'))
+    # When form is requested, fill in current profile info to the fields
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.about_me.data = current_user.about_me
+    return render_template('profile_edit.html', form=form)
