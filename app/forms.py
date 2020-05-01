@@ -13,14 +13,22 @@ class LoginForm(FlaskForm):
 
 # Form for signup
 class SignUpForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=15, message='Must be between 2-15 characters.')])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=10, message='Minimum length %(min)d characters.')])
     password_2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     email = StringField('Email address', validators=[DataRequired(), Email()])
     submit = SubmitField('Signup')
 
-    # Check if username already exist in db
+    # Custom validator for username
     def validate_username(self, username):
+        # Check if username has atleast one letter
+        for char in username.data:
+            if char.isalpha():
+                break
+        else:
+            raise ValidationError('Must have one letter.')
+
+        # Check if username already exist in db
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Username already in use.')

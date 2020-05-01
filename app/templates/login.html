@@ -1,7 +1,11 @@
 {% extends "template.html" %}
 
 {% block style %}
-<link href="../static/signup.css" rel="stylesheet">
+  <style>
+    span {
+      color: red;
+    }
+  </style>
 {% endblock %}
 
 {% block title %} Login {% endblock %}
@@ -10,26 +14,30 @@
 
   <div class="jumbotron">
     <h1 class="text-center">Login</h1>
-    <form action="" method="POST" class="form-signin" novalidate>
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.username.label }}<br>
-        {{ form.username(size=32) }}
-        
-        {% for error in form.username.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
-      <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}
-
-        {% for error in form.password.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
-      <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-      <p>{{ form.submit() }}</p>
+    <form action="" method="POST" class="" novalidate>
+      <div class="form-group row justify-content-center">
+        {{ form.hidden_tag() }}
+        <div class="col-form-label col-md-auto">{{ form.username.label }}</div>
+        <div class="col-md-auto">{{ form.username(size=32) }}
+          {% for error in form.username.errors %}
+            <span class="row col-md-auto">[{{ error }}]</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group row justify-content-center">
+        <div class="col-form-label col-md-auto">{{ form.password.label }}</div>
+          <div class="col-md-auto">{{ form.password(size=32) }}
+            {% for error in form.password.errors %}
+              <span class="row col-md-auto">[{{ error }}]</span>
+            {% endfor %}
+          </div>
+      </div>
+      <div class="form-group row justify-content-center">
+        {{ form.remember_me() }} {{ form.remember_me.label }}
+      </div>
+      <div class="row justify-content-center">
+        <p>{{ form.submit(class_="btn btn-primary px-4") }}</p>
+      </div>
     </form>
   </div>
 

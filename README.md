@@ -25,6 +25,9 @@ index.html          Front side of web-server. Maybe add some kind of dashboard f
 template.html       Template for all pages. Includes basic head information, CSS and code block placements.
 login.html          User login page.
 signup.html         User registration page.
+profile.html        User profile page.
+profile_edit.html   Edit user profile page.
+
 
 migration/          Some files used for database migrations. Made by flask-migrate.
 migration/version/  Contains scripts for database migration.
