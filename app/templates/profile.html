@@ -12,7 +12,7 @@
         <div class="card-body">
           <p class="card-text">Name: {{ user.username }}</p>
           <p class="card-text">Email: {{ user.email }}</p>
-          <p class="card-text">Signup date: {{ user.signup_date }}</p>
+          <p class="card-text">Signup date: {{ moment(user.signup_date).format('Do MMMM, YYYY HH:mm') }}</p>
           {% if user == current_user %}
           <a class="btn btn-primary" href="{{ url_for('edit_profile') }}">Edit Profile</a>
           {% endif %}

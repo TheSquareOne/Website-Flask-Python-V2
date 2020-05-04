@@ -3,6 +3,7 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_moment import Moment
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
@@ -18,8 +19,10 @@ login = LoginManager(app)
 login.login_view = 'login'
 # Migration engine
 migrate = Migrate(app, db)
+# Flask-Moment for timestamps
+moment = Moment(app)
 
-from app import routes, models
+from app import routes, models, errors
 
 
 # Shell context
@@ -27,7 +30,21 @@ from app import routes, models
 from app.models import User, Post
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User, 'Post': Post, 'admins': app.config['ADMINS']}
+    return {'db': db, 'User': User, 'Post': Post,
+            'mailconf':(
+                        'MAIL_SERVER:' + str(app.config['MAIL_SERVER']),
+                        'MAIL_PORT:' + str(app.config['MAIL_PORT']),
+                        'MAIL_USE_TLS:' + str(app.config['MAIL_USE_TLS']),
+                        'MAIL_USERNAME:' + str(app.config['MAIL_USERNAME']),
+                        'MAIL_PASSWORD:' + str(app.config['MAIL_PASSWORD'])
+                    ),
+            'email':(
+                        'mailhost:' + str(app.logger.handlers[1].mailhost),
+                        'mailport:' + str(app.logger.handlers[1].mailport),
+                        'username:' + str(app.logger.handlers[1].username),
+                        'toaddr:' + str(app.logger.handlers[1].toaddrs),
+                        'fromaddr:' + str(app.logger.handlers[1].fromaddr),
+                    )}
 
 
 # Logging categories: DEBUG, INFO, WARNING, ERROR, CRITICAL
@@ -35,7 +52,8 @@ def make_shell_context():
 # If debug mode is on, dont use logging features
 if not app.debug:
     # Email logging
-    # If mail server is set, send email to authorized personels about occurred error
+    # If mail server is set, send email to authorized personels
+    # about occurred error
     if app.config['MAIL_SERVER']:
         auth = None
         if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
@@ -44,7 +62,8 @@ if not app.debug:
         if app.config['MAIL_USE_TLS']:
             secure = ()
         mail_handler = SMTPHandler(
-                    mailhost = (app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
+                    mailhost = (app.config['MAIL_SERVER'],
+                                app.config['MAIL_PORT']),
                     fromaddr = 'no-reply@' + app.config['MAIL_SERVER'],
                     toaddrs = app.config['ADMINS'],
                     subject = 'Server Error',
@@ -60,7 +79,8 @@ if not app.debug:
     if not os.path.exists('logs'):
         os.mkdir('logs')
     # Set log file name, maximum file size to 10kB and save 10 last log files
-    file_handler = RotatingFileHandler('logs/WebServer.log', maxBytes=10240, backupCount=10)
+    file_handler = RotatingFileHandler('logs/WebServer.log',
+                                        maxBytes=10240, backupCount=10)
     # Format: timestamp logging level, message, source file and line number
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))

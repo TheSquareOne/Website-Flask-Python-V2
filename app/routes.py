@@ -33,7 +33,8 @@ def login():
 
         # If login URL doesn't have next argument or next URL isn't relative
         # redirect user to home page.
-        # If login URL does have next argument redirect user to that page after login.
+        # If login URL does have next argument,
+        # redirect user to that page after login.
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('home')
@@ -57,7 +58,8 @@ def signup():
     # Validate signup form (check SignUpForm from forms.py)
     form = SignUpForm()
     if form.validate_on_submit():
-        # If validation was successful add user to db and redirect to login page
+        # If validation was successful, add user to db
+        # and redirect to login page
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)

@@ -13,10 +13,18 @@ class LoginForm(FlaskForm):
 
 # Form for signup
 class SignUpForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=15, message='Must be between 2-15 characters.')])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=10, message='Minimum length %(min)d characters.')])
-    password_2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    email = StringField('Email address', validators=[DataRequired(), Email()])
+    username = StringField('Username',
+                validators=[DataRequired(),
+                            Length(min=2, max=15,
+                                message='Must be between 2-15 characters.')])
+    password = PasswordField('Password',
+                validators=[DataRequired(),
+                            Length(min=10,
+                                message='Minimum length %(min)d characters.')])
+    password_2 = PasswordField('Confirm Password',
+                validators=[DataRequired(), EqualTo('password')])
+    email = StringField('Email address',
+                validators=[DataRequired(), Email()])
     submit = SubmitField('Signup')
 
     # Custom validator for username
@@ -42,8 +50,10 @@ class SignUpForm(FlaskForm):
 
 # This is profile editing form
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=200)])
+    username = StringField('Username',
+                validators=[DataRequired()])
+    about_me = TextAreaField('About me',
+                validators=[Length(min=0, max=200)])
     submit = SubmitField('Submit')
 
     # Not exactly sure what this does,

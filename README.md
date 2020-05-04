@@ -18,6 +18,7 @@ routes.py           URL routes.
 forms.py            Create secure web forms with Flask-WTF.
 config.py           Include application configurations.
 models.py           Include db models and some db functions.
+errors.py           Custom error pages.
 
 
 HTML pages:
@@ -27,6 +28,8 @@ login.html          User login page.
 signup.html         User registration page.
 profile.html        User profile page.
 profile_edit.html   Edit user profile page.
+404.html            Custom page for error 404, missing file.
+500.html            Custom page for error 500, internal server error.
 
 
 migration/          Some files used for database migrations. Made by flask-migrate.
@@ -48,4 +51,7 @@ Problems:
 
 
 References:
-https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+  Flask Mega-Tutorial by Miguel Grinberg
+  https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+  Great MySQL Timezone cheatsheet by Timo Huovinen
+  https://stackoverflow.com/questions/19023978/should-mysql-have-its-timezone-set-to-utc/19075291#19075291

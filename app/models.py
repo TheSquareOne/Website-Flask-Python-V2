@@ -20,8 +20,10 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    edit_date = db.Column(db.TIMESTAMP, default=text('CURRENT_TIMESTAMP'), nullable=False)
-    signup_date = db.Column(db.TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'), nullable=False)
+    edit_date = db.Column(db.TIMESTAMP, nullable=False,
+                            default=text('CURRENT_TIMESTAMP'))
+    signup_date = db.Column(db.TIMESTAMP, nullable=False,
+                            server_default=text('CURRENT_TIMESTAMP'))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(200))
 

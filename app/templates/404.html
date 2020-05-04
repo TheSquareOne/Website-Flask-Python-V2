@@ -1,0 +1,13 @@
+{% extends 'template.html' %}
+{% block title %} Error 404 {% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+  <div class="text-center p-5">
+    <h1>Missing file</h1>
+    <h5 class="pb-4">This URL might be incorrect or doesn't exist anymore.</h5>
+    <a class="btn btn-info btn-lg" href="{{ url_for('home') }}"">Back</a>
+  </div>
+{% endblock %}
