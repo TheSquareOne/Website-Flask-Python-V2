@@ -23,8 +23,7 @@ class SignUpForm(FlaskForm):
                                 message='Minimum length %(min)d characters.')])
     password_2 = PasswordField('Confirm Password',
                 validators=[DataRequired(), EqualTo('password')])
-    email = StringField('Email address',
-                validators=[DataRequired(), Email()])
+    email = StringField('Email address', validators=[DataRequired(), Email()])
     submit = SubmitField('Signup')
 
     # Custom validator for username
@@ -50,10 +49,8 @@ class SignUpForm(FlaskForm):
 
 # This is profile editing form
 class EditProfileForm(FlaskForm):
-    username = StringField('Username',
-                validators=[DataRequired()])
-    about_me = TextAreaField('About me',
-                validators=[Length(min=0, max=200)])
+    username = StringField('Username', validators=[DataRequired()])
+    about_me = TextAreaField('About me', validators=[Length(min=0, max=200)])
     submit = SubmitField('Submit')
 
     # Not exactly sure what this does,
@@ -69,3 +66,20 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Username already in use.')
+
+
+# Password reset request form
+class PasswordResetRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+
+# Password reset form
+class PasswordResetForm(FlaskForm):
+    password = PasswordField('Password',
+                validators=[DataRequired(),
+                            Length(min=10,
+                                message='Minimum length %(min)d characters.')])
+    password_2 = PasswordField('Confirm password',
+                validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request password reset')

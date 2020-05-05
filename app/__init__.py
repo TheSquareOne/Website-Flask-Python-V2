@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_moment import Moment
+from flask_mail import Mail
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
@@ -21,6 +22,8 @@ login.login_view = 'login'
 migrate = Migrate(app, db)
 # Flask-Moment for timestamps
 moment = Moment(app)
+# Flask-mail for email support
+mail = Mail(app)
 
 from app import routes, models, errors
 
@@ -30,21 +33,7 @@ from app import routes, models, errors
 from app.models import User, Post
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User, 'Post': Post,
-            'mailconf':(
-                        'MAIL_SERVER:' + str(app.config['MAIL_SERVER']),
-                        'MAIL_PORT:' + str(app.config['MAIL_PORT']),
-                        'MAIL_USE_TLS:' + str(app.config['MAIL_USE_TLS']),
-                        'MAIL_USERNAME:' + str(app.config['MAIL_USERNAME']),
-                        'MAIL_PASSWORD:' + str(app.config['MAIL_PASSWORD'])
-                    ),
-            'email':(
-                        'mailhost:' + str(app.logger.handlers[1].mailhost),
-                        'mailport:' + str(app.logger.handlers[1].mailport),
-                        'username:' + str(app.logger.handlers[1].username),
-                        'toaddr:' + str(app.logger.handlers[1].toaddrs),
-                        'fromaddr:' + str(app.logger.handlers[1].fromaddr),
-                    )}
+    return {'db': db, 'User': User, 'Post': Post}
 
 
 # Logging categories: DEBUG, INFO, WARNING, ERROR, CRITICAL
