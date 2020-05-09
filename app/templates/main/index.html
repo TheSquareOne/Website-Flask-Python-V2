@@ -13,10 +13,10 @@
     <p class="lead"></p>
     <div class="menu">
       {% if current_user.is_anonymous %}
-      <a class="btn btn-lg btn-primary btn-block" href="{{ url_for('login') }}">Login</a>
-      <a class="btn btn-lg btn-primary btn-block" href="{{ url_for('signup') }}">Sign Up</a>
+      <a class="btn btn-lg btn-primary btn-block" href="{{ url_for('auth.login') }}">Login</a>
+      <a class="btn btn-lg btn-primary btn-block" href="{{ url_for('auth.signup') }}">Sign Up</a>
       {% else %}
-      <a class="btn btn-lg btn-primary btn-block" href="{{ url_for('logout') }}">Logout</a>
+      <a class="btn btn-lg btn-primary btn-block" href="{{ url_for('auth.logout') }}">Logout</a>
       {% endif %}
     </div>
   </div>

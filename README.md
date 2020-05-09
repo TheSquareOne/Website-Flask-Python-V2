@@ -6,35 +6,24 @@ I realized things i could have made better in my first project, but refactoring 
 Things to improve: classes, file structure, virtual environment, comments and usage of libraries i found during my first researches.
 
 Versions:
-Python:   3.6.9
-Flask:    1.1.2
-Werkzeug: 1.0.1
+* Python:   3.6.9
+* Flask:    1.1.2
+* Werkzeug: 1.0.1
 
+```
+app/models.py           - Database models
+app/template.html       - Base template
 
-Python scripts:
-app.py              Base app code.
-__init__.py         Initialize flask and extensions.
-routes.py           URL routes.
-forms.py            Create secure web forms with Flask-WTF.
-config.py           Include application configurations.
-models.py           Include db models and some db functions.
-errors.py           Custom error pages.
-
-
-HTML pages:
-index.html          Front side of web-server. Maybe add some kind of dashboard features and public stuff (blogs, projects) in future here.
-template.html       Template for all pages. Includes basic head information, CSS and code block placements.
-login.html          User login page.
-signup.html         User registration page.
-profile.html        User profile page.
-profile_edit.html   Edit user profile page.
-404.html            Custom page for error 404, missing file.
-500.html            Custom page for error 500, internal server error.
-
-
-migration/          Some files used for database migrations. Made by flask-migrate.
-migration/version/  Contains scripts for database migration.
-
+app/auth/               - Authentication routes
+app/errors/             - Error handlers
+app/main/               - Basic routes
+app/template/           - Templates
+app/template/auth/      - Authentication html pages
+app/template/email/     - Email support emails
+app/template/errors/    - Error pages
+app/template/main/      - Basic html pages
+migration/version/      - Database migration scripts
+```
 
 Migrations commands:
     'flask db migrate -m "This is comment"'     Generate migrations script with comment.
