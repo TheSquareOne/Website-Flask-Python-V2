@@ -1,9 +1,15 @@
 import os
+from dotenv import load_dotenv
+
+# Create .env path, which should be in root directory.
+basedir = os.path.abspath(os.path.dirname(__file__))
+# Load environment variables from .env for config.
+load_dotenv(os.path.join(basedir, '.env'))
 
 # Configuration variables
 class Config(object):
     # Secret key used by Flask-WTF extension to protect webforms from CSRF
-    SECRET_KEY = os.environ.get('SECRET_KEY') or '5up3r#s3cret_key!'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or '5up3r#s3cret_key_Yu0_w1Ll-N3v3R#GUE55!!'
 
     # Read database URL from file config.txt
     with open('config.txt', 'r') as f:
