@@ -11,10 +11,8 @@
 /virenv/
 
 # Ignore migration files, except migration scripts
-!/migrations/
-/migrations/*
-/migrations/versions/__pycache__/
-!/migrations/versions/
+/migrations/__pycache__
+/migrations/versions/__pycache__
 
 # Logs
 /logs/
