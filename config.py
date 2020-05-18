@@ -33,3 +33,15 @@ class Config(object):
         emails = f.readlines()
         for e in emails:
             ADMINS.append(e[:-1])
+
+    # Check if folder for uploads exist
+    if not os.path.exists('uploads'):
+        try:
+            os.mkdir('uploads')
+            print("Created folder for uploads")
+        except Exception:
+            print("Couldn't create folder for uploads")
+    # Root path for uploads
+    UPLOAD_PATH = os.environ.get('UPLOAD_PATH')
+    # Allowed file extensions
+    ALLOWED_FILES = os.environ.get('ALLOWED_FILES')

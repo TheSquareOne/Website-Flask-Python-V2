@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import jwt
 from time import time
+import secrets
 
 # +---------------+--------------+------+-----+-------------------+-----------------------------+
 # | Field         | Type         | Null | Key | Default           | Extra                       |
@@ -17,6 +18,7 @@ from time import time
 # | edit_date     | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
 # | signup_date   | timestamp    | NO   |     | CURRENT_TIMESTAMP |                             |
 # | about_me      | varchar(200) | YES  |     | NULL              |                             |
+# | api_token     | varchar(64)  | YES  | UNI | NULL              |                             |
 # +---------------+--------------+------+-----+-------------------+-----------------------------+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,6 +31,7 @@ class User(UserMixin, db.Model):
                             server_default=text('CURRENT_TIMESTAMP'))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(200))
+    api_token = db.Column(db.String(64), index=True, unique=True)
 
     # Set password for user
     def set_password(self, password):
@@ -45,6 +48,13 @@ class User(UserMixin, db.Model):
                         {'reset_password': self.id, 'exp': time() + expires_in},
                         current_app.config['SECRET_KEY'],
                         algorithm='HS256').decode('utf-8')
+
+    # Generate API token for user
+    def gen_api_token(self):
+        api_token = secrets.token_urlsafe()
+        if User.query.filter_by(api_token=api_token).first() is None:
+            self.api_token = api_token
+
 
     # Static methods can be invoked directly from the class.
     # Try verifying given token. If it's ok return user ID, else return None

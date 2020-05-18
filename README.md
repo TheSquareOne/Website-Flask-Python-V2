@@ -17,11 +17,13 @@ app/template.html       - Base template
 app/auth/               - Authentication routes
 app/errors/             - Error handlers
 app/main/               - Basic routes
-app/template/           - Templates
-app/template/auth/      - Authentication html pages
-app/template/email/     - Email support emails
-app/template/errors/    - Error pages
-app/template/main/      - Basic html pages
+app/upload/             - Upload features
+app/templates/          - Templates
+app/templates/auth/     - Authentication html pages
+app/templates/email/    - Email support emails
+app/templates/errors/   - Error pages
+app/templates/main/     - Basic html pages
+app/templates/upload/   - Upload page
 migration/version/      - Database migration scripts
 ```
 

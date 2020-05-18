@@ -2,6 +2,7 @@
 /app/auth/__pycache__/
 /app/errors/__pycache__/
 /app/main/__pycache__/
+/app/upload/__pycache__/
 /app/__pycache__/
 /app/*.pyc
 /__pycache__/
@@ -26,3 +27,9 @@ emails.txt
 
 # Environment variables
 .env
+
+# Static files
+app/static/
+
+# Uploads
+uploads/
