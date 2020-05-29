@@ -33,3 +33,18 @@ class Config(object):
         emails = f.readlines()
         for e in emails:
             ADMINS.append(e[:-1])
+
+    # Root path for uploads
+    UPLOAD_PATH = os.environ.get('UPLOAD_PATH')
+    # Allowed file extensions
+    ALLOWED_FILES = os.environ.get('ALLOWED_FILES')
+    # Limit file size
+    # Dont use .env or it will be string instead of int
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+
+    # AES Encryption key
+    CRYPTO_KEY = os.environ.get('CRYPTO_KEY')
+    # AES IV key
+    CRYPTO_IV = os.environ.get('CRYPTO_IV')
+    # Padding added for user id encryption
+    MAGIC_WORD = os.environ.get('MAGIC_WORD')

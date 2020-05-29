@@ -27,11 +27,15 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     # Get configs
     app.config.from_object(config_class)
-
+    # Init database
     db.init_app(app)
+    # Init migration engine
     migrate.init_app(app, db)
+    # Init login manager
     login.init_app(app)
+    # Init email support
     mail.init_app(app)
+    # Init flask-moment for timestamps
     moment.init_app(app)
 
     # Register errors blueprint
@@ -46,10 +50,13 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
+    # Register upload Blueprint
+    from app.upload import bp as upload_bp
+    app.register_blueprint(upload_bp)
+
 
     # Logging categories: DEBUG, INFO, WARNING, ERROR, CRITICAL
-
-    # If debug mode is on, dont use logging features
+    # If debug mode is on or testing set 1, dont use logging features
     if not app.debug and not app.testing:
         # Email logging
         # If mail server is set, send email to authorized personels

@@ -11,8 +11,9 @@ def send_async_email(app, msg):
 
 # Send email using one thread for app speed improvement
 def send_email(subject, sender, recipients, text_body, html_body):
+    # Create message
     msg = Message(subject, sender=sender, recipients=recipients)
-    # Depending on the client, either text or HTML body will be seen
+    # Depending on the client used, either text or HTML body will be seen
     msg.body = text_body
     msg.html = html_body
     # Use thread for sending email

@@ -1,0 +1,126 @@
+{% extends "template.html" %}
+
+{% block style %}
+  <style>
+    .hide {
+      display: none;
+    }
+    form img {
+      height: 64px;
+      order: 1;
+    }
+    .preview li {
+      border: 0.175rem solid grey;
+      margin: 0.5rem;
+      padding: 0.5rem;
+    }
+    span {
+      color: red;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h2 class="text-center">Select the files to upload</h2>
+  <form method="POST" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+      <div class="pl-5">
+        {{ form.files.label(class_='btn btn-primary') }}
+        {% for error in form.files.errors %}
+          <span id="error" class="row col-md-auto">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+      <div class="hide">{{ form.files() }}</div>
+    <div class="preview"></div>
+    <div class="pl-5 pt-2">
+      {{ form.submit(class_='btn btn-success') }}
+  	</div>
+  </form>
+  <script>
+    const input = document.querySelector('#files');
+    const preview = document.querySelector('.preview');
+
+    input.addEventListener('change', updateImageDisplay);
+
+    function updateImageDisplay() {
+      while(preview.firstChild) {
+        preview.removeChild(preview.firstChild);
+      }
+
+      if (document.getElementById('error')) {
+        removeSpanError();
+      }
+
+      const curFiles = input.files;
+      if(curFiles.length === 0) {
+        const name = document.createElement('div');
+        const size = document.createElement('div');
+        name.textContent = 'No files currently selected for upload';
+        preview.appendChild(name);
+      } else {
+        const list = document.createElement('ol');
+        preview.appendChild(list);
+
+        for(const file of curFiles) {
+          const listItem = document.createElement('li');
+          const name = document.createElement('div');
+          const size = document.createElement('div');
+
+          if(validFileType(file)) {
+            name.textContent = `${file.name}`;
+            size.textContent = `${returnFileSize(file.size)}`;
+            const image = document.createElement('img');
+            image.src = URL.createObjectURL(file);
+            const imageCont = document.createElement('div');
+            const infoCont = document.createElement('div');
+
+            listItem.classList.add('d-flex', 'row', 'justify-content-between');
+
+            imageCont.appendChild(image);
+            infoCont.appendChild(name);
+            infoCont.appendChild(size);
+            listItem.appendChild(infoCont);
+            listItem.appendChild(imageCont);
+          } else {
+            name.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+            listItem.appendChild(name);
+          }
+
+          list.appendChild(listItem);
+        }
+      }
+    }
+
+    const fileTypes = [
+        'image/apng',
+        'image/bmp',
+        'image/gif',
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+        'image/svg+xml',
+        'image/tiff',
+        'image/webp',
+        `image/x-icon`
+    ];
+
+    function validFileType(file) {
+      return fileTypes.includes(file.type);
+    }
+
+    function returnFileSize(number) {
+      if(number < 1024) {
+        return number + 'bytes';
+      } else if(number > 1024 && number < 1048576) {
+        return (number/1024).toFixed(1) + 'KB';
+      } else if(number > 1048576) {
+        return (number/1048576).toFixed(1) + 'MB';
+      }
+    }
+
+    function removeSpanError() {
+      const span = document.getElementById('error')
+      span.remove();
+    }
+  </script>
+{% endblock %}

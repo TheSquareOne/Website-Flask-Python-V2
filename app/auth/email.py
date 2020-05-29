@@ -5,7 +5,7 @@ from app.main.email import send_email
 def send_password_reset_email(user):
     # Get token for user password reset
     token = user.get_reset_password_token()
-    # Send email to user containing password reset link
+    # Send password reset link 
     send_email('Reset your password',
                 sender=current_app.config['ADMINS'][0],
                 recipients=[user.email],

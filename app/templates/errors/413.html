@@ -1,0 +1,13 @@
+{% extends 'template.html' %}
+{% block title %} Error 413 {% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+  <div class="text-center p-5">
+    <h1>Too large file request</h1>
+    <h5 class="pb-4">The files in request exceeded file size limit.</h5>
+    <a class="btn btn-info btn-lg" href="{{ url_for('main.home') }}"">Back</a>
+  </div>
+{% endblock %}

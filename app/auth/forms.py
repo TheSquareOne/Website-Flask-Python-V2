@@ -13,6 +13,9 @@ class LoginForm(FlaskForm):
 
 # Form for signup
 class SignUpForm(FlaskForm):
+    # Requirements:
+    # Password min 10 characters
+    # Username 2-15 characters and atleast 1 letter
     username = StringField('Username',
                 validators=[DataRequired(),
                             Length(min=2, max=15,
@@ -26,7 +29,7 @@ class SignUpForm(FlaskForm):
     email = StringField('Email address', validators=[DataRequired(), Email()])
     submit = SubmitField('Signup')
 
-    # Custom validator for username
+    # Validate username
     def validate_username(self, username):
         # Check if username has atleast one letter
         for char in username.data:
@@ -40,8 +43,9 @@ class SignUpForm(FlaskForm):
         if user is not None:
             raise ValidationError('Username already in use.')
 
-    # Check if email already exist in db
+    # Validate email
     def validate_email(self, email):
+        # Check if email already exist in db
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Email already in use.')
@@ -55,6 +59,8 @@ class PasswordResetRequestForm(FlaskForm):
 
 # Password reset form
 class PasswordResetForm(FlaskForm):
+    # Requirements
+    # Password min 10 characters
     password = PasswordField('Password',
                 validators=[DataRequired(),
                             Length(min=10,

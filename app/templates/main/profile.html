@@ -1,24 +1,69 @@
 {% extends "template.html" %}
 {% block title %} Profile {% endblock %}
 
+{% block style %}
+  <style>
+    img {
+      outline: 1px solid black;
+      max-width: 200px;
+      max-height: 200px;
+    }
+
+    .main-card {
+      border: 1px solid rgba(0, 0, 0, .125);
+      background-color: white;
+      border-radius: 1rem;
+      box-shadow: 3px 3px 10px grey;
+    }
+
+    .about-card {
+      border: 1px solid rgba(0, 0, 0, .125);
+      background-color: white;
+      border-radius: 1rem;
+      box-shadow: 3px 3px 10px grey;
+    }
+
+    .card {
+      background-color: rgba(219, 245, 255, 1);
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
 
   <div class="card">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="../static/cat.jpeg" class="card-img">
+    <div class="row no-gutters main-card m-3">
+      <div class="col-md-auto p-3">
+        <img src="{{ gravatar_url }}" class="card-img">
       </div>
-      <div class="col-md-8">
+      <div class="col-md-auto">
         <div class="card-body">
           <p class="card-text">Name: {{ user.username }}</p>
+          {% if user == current_user %}
           <p class="card-text">Email: {{ user.email }}</p>
+          {% endif %}
+          {% if user == current_user %}
           <p class="card-text">Signup date: {{ moment(user.signup_date).format('Do MMMM, YYYY HH:mm') }}</p>
+          {% else %}
+          <p class="card-text">Signup date: {{ moment(user.signup_date).format('Do MMMM, YYYY') }}</p>
+          {% endif %}
           {% if user == current_user %}
           <a class="btn btn-primary" href="{{ url_for('main.edit_profile') }}">Edit Profile</a>
           {% endif %}
         </div>
       </div>
     </div>
+    {% if user.about_me %}
+      <div class="about-card card-body m-3">
+        {{ user.about_me }}
+      </div>
+    {% endif %}
+    {% if user == current_user %}
+      <div>
+        <input type="text" value="{{ user.api_token }}" readonly>
+        <a class="btn" href="{{ url_for('main.get_api_token') }}">Refresh token</a>
+      </div>
+    {% endif %}
   </div>
 
 {% endblock %}
