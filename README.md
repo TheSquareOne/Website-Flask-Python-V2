@@ -10,6 +10,32 @@ Things to improve: classes, file structure, virtual environment, comments and us
   - Flask:    1.1.2
   - Werkzeug: 1.0.1
 
+#### Remember:
+  - git pull
+  - Stop supervisorctl
+  - Change config.py alternate SECRET_KEY
+  - Download requirements.txt
+  - Migrate DB
+  - Set environment variables
+  - Check FLASK_APP
+  - Start supervisor
+
+#### Virtual environment variables
+```
+SECRET_KEY
+MAIL_SERVER
+MAIL_PORT
+MAIL_USE_TLS
+MAIL_USERNAME
+MAIL_PASSWORD
+UPLOAD_PATH
+ALLOWED_FILES
+CRYPTO_KEY
+CRYPTO_IV
+MAGIC_WORD
+```
+
+
 ```
 app/models.py           - Database models
 app/template.html       - Base template
