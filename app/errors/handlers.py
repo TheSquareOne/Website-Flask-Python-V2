@@ -13,3 +13,13 @@ def internal_error(error):
     # Issue database rollback, to reset session in clean state
     db.session.rollback()
     return render_template('errors/500.html'), 500
+
+# Too large file
+@bp.app_errorhandler(413)
+def request_entity_too_large(error):
+    return render_template('errors/413.html'), 413
+
+# Method not allowed
+@bp.app_errorhandler(405)
+def method_not_allowed(error):
+    return render_template('errors/405.html'), 405

@@ -22,7 +22,7 @@
 
 {% block content %}
   <h2 class="text-center">Select the files to upload</h2>
-  <form method="post" action="" enctype="multipart/form-data">
+  <form method="POST" action="" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
       <div class="pl-5">
         {{ form.files.label(class_='btn btn-primary') }}

@@ -93,3 +93,13 @@ class Post(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+# User loader that will load user from database on request, based on api_token
+@login.request_loader
+def load_user_from_request(request):
+    api_token = request.headers.get('Authorization')
+    if api_token:
+        user = User.query.filter_by(api_token=api_token).first()
+        if user:
+            return user
+    return None
