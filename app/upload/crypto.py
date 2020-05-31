@@ -7,7 +7,7 @@ import os
 # Encrypt data and return encoded Base64 string, without Base64 padding
 def encrypt_data(data):
     obj = AES.new(os.environ.get('CRYPTO_KEY').encode('utf-8'), AES.MODE_CFB, os.environ.get('CRYPTO_IV').encode('utf-8'))
-    data = obj.encrypt(data)
+    data = obj.encrypt(data.encode('utf-8'))
     # Calculate base64 padding and remove it from the end
     pad = 3 - (len(data) % 3)
     return base64.b64encode(data)[:-pad].decode('utf-8')
